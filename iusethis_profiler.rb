@@ -104,11 +104,12 @@ paths.each do |path|
   end
 end
 
-#########################################################################################
-
 installed_apps.sort!.uniq!
 
 puts "  + Found #{installed_apps.length.to_s} applications."
+
+#########################################################################################
+
 puts "- Check which applications to send..."
 
 # Ask the user whether he wants to upload this app to iUseThis, if not
@@ -119,6 +120,8 @@ installed_apps.each do |app|
   break if input =~ /a/
   (input =~ /n/) ? installed_apps.delete(app) : nil
 end
+
+#########################################################################################
 
 puts "- Sending data to iusethis.com"
 
