@@ -1,8 +1,11 @@
 #!/usr/bin/ruby
 
 ####
-# iUseThis_profiler v.0.1 (c) 2008 by Knut Ahlers
+# iUseThis_profiler v.0.2 (c) 2008 by Knut Ahlers
 # WWW: http://blog.knut.me - Mail: knut@ahlers.me
+#
+# Thanks to Andrew Turner for his improvements to ask the user which
+# applications to send to iUseThis.
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -76,7 +79,7 @@ end
 
 #########################################################################################
 
-puts "Welcome to iUseThis_profiler v.0.1"
+puts "Welcome to iUseThis_profiler v.0.2"
 puts "- Collecting paths..."
 
 paths = []
@@ -103,10 +106,25 @@ end
 
 #########################################################################################
 
+installed_apps.sort!.uniq!
+
+puts "  + Found #{installed_apps.length.to_s} applications."
+puts "- Check which applications to send..."
+
+# Ask the user whether he wants to upload this app to iUseThis, if not
+# delete it from the list.
+installed_apps.each do |app|
+  print "  + Upload application '#{app}' to iusethis? (Y/n/a) "
+  input = gets.chomp
+  break if input =~ /a/
+  (input =~ /n/) ? installed_apps.delete(app) : nil
+end
+
 puts "- Sending data to iusethis.com"
 
-installed_apps.uniq.each do |app|
-  # For each app or widget which has been found send it once to the api service.
+installed_apps.each do |app|
+  # For each app or widget which has been found and is still in the list
+  # send it once to the api service.
   url = "http://osx.iusethis.com/api/iusethis/" + app
   print "  + Sending '#{app}'... "
   
