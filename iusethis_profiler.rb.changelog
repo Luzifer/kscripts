@@ -1,0 +1,23 @@
+commit e06d8638b379820b3cbf85da2d23c213ba2128d8
+Author: Knut Ahlers <knut@ahlers.me>
+Date:   Tue Dec 30 13:37:19 2008 +0100
+
+    v.0.3: Added support for prefPanes; Now displaying progress while asking the user to add the app to iUseThis
+
+commit 8fcee18e7646af146dac484adea888d6701217a9
+Author: Knut Ahlers <knut@ahlers.me>
+Date:   Mon Dec 29 17:24:41 2008 +0100
+
+    Better code formatting
+
+commit f9aa4ea36fdfb53987da0327f85ec2ec59c49edf
+Author: Knut Ahlers <knut@ahlers.me>
+Date:   Mon Dec 29 17:22:04 2008 +0100
+
+    Added user check which applications to transfer
+
+commit e9046a4925f4dd44b63d5dc6d17167fe1e03d5e1
+Author: Knut Ahlers <knut@ahlers.me>
+Date:   Tue Dec 23 21:50:09 2008 +0100
+
+    Added iUseThis_Profiler v.0.1
