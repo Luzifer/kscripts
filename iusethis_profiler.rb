@@ -1,7 +1,7 @@
 #!/usr/bin/ruby
 
 ####
-# iUseThis_profiler v.0.4 (c) 2008 by Knut Ahlers
+# iUseThis_profiler v.0.5 (c) 2008 by Knut Ahlers
 # WWW: http://blog.knut.me - Mail: knut@ahlers.me
 #
 # Thanks to Andrew Turner for his improvements to ask the user which
@@ -21,15 +21,13 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ####
 
-user = 'your username to log you in' # Your iusethis-Username
-pass = 'you should enter your own password'  # The corresponding password
-
 #########################################################################################
 ### PLEASE DO NOT MAKE ANY CHANGES BELOW THIS LINE UNLESS YOU KNOW WHAT YOU ARE DOING ###
 #########################################################################################
 
 require 'find'
 require 'net/http'
+require 'rexml/document'
 
 #########################################################################################
 
@@ -82,7 +80,29 @@ end
 
 #########################################################################################
 
-puts "Welcome to iUseThis_profiler v.0.4"
+
+def resolve_message(result)
+  case result.code.to_i
+  when 404
+    return 'Application not found'
+  when 409
+    return 'Application is already in your profile'
+  else
+    return "Can't add this application"
+  end
+end
+
+#########################################################################################
+
+puts "Welcome to iUseThis_profiler v.0.5"
+
+print "- What is your username for iUseThis_Profiler: "
+user = gets.chomp
+print "- And what is your password for this account: "
+pass = gets.chomp
+
+#########################################################################################
+
 puts "- Collecting paths..."
 
 paths = []
@@ -119,27 +139,61 @@ puts "  + Found #{installed_apps.length.to_s} applications."
 
 puts "- Check which applications to send..."
 
+puts "  + Getting already added applications..."
+added_apps = []
+
+uri = URI.parse("http://osx.iusethis.com/user_opml/#{user}")
+res = Net::HTTP.get_response(uri)
+opml = REXML::Document.new(res.body)
+
+opml.elements.each('//outline') do |ol|
+  url = ol.attributes['xmlUrl']
+  next if url.nil?
+  added_apps << url[url.rindex('/')+1..url.length]
+end
+
+opml.elements.each('//Aliases') do |al|
+  url = al.text
+  next if url.nil?
+  added_apps << url[url.rindex('/')+1..url.length]
+end
+
+#########################################################################################
+
+send_apps = []
+
 # Ask the user whether he wants to upload this app to iUseThis, if not
 # delete it from the list.
 installed_apps.each do |app|
   count = "(#{(installed_apps.index(app) + 1).to_s.rjust(3)} / #{installed_apps.length.to_s.rjust(3)})"
   print "  + #{count} Upload application '#{app}' to iusethis? (Y/n/a) "
-  input = gets.chomp
-  break if input =~ /a/
-  (input =~ /n/) ? installed_apps.delete(app) : nil
+  
+  if added_apps.include? app
+    puts "n (Already added.)"
+  else
+    input = gets.chomp
+    if input =~ /a/
+      send_apps << installed_apps
+      send_apps.flatten!
+      break
+    end
+    (input =~ /n/) ? nil : send_apps.push(app)
+  end
 end
 
 #########################################################################################
 
 puts "- Sending data to iusethis.com"
 
-installed_apps.each do |app|
+send_apps.each do |app|
   # For each app or widget which has been found and is still in the list
   # send it once to the api service.
   url = "http://osx.iusethis.com/api/iusethis/" + app
   print "  + Sending '#{app}'... "
   
   result = get_post_response url, user, pass
+  
+  message = resolve_message result
   
   # Analyse the result passed by the api
   case result
@@ -150,7 +204,7 @@ installed_apps.each do |app|
       puts 'Redirect limit exceeded.'
       next
     end
-    puts "failed. Reason: #{result.code} - #{result.message}"
+    puts "failed. Reason: #{message}"
   end
   
 end
