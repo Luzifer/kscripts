@@ -1,0 +1,5 @@
+commit d9faf8d6fe0ff9357bce8c00cf8af9acdcb67ca9
+Author: Knut Ahlers <knut@ahlers.me>
+Date:   Tue Dec 30 17:21:34 2008 +0100
+
+    v.0.1: Wrote a little cleaner to wipe all apps from the profile

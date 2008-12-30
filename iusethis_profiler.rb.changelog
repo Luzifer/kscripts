@@ -1,3 +1,12 @@
+commit 1dac95a2f34140485e5411bbf452bc2520ab0a39
+Author: Knut Ahlers <knut@ahlers.me>
+Date:   Tue Dec 30 17:17:39 2008 +0100
+
+    * Moved user definition from code to prompt
+    * Removed a bug while selecting applications to transmit
+    * Already added apps will now be marked as "n" automaticaly
+    * Rewrote the bad messages for '409' and '404'
+
 commit cc8ce1b4c972fe0beed67f221ff55a466e9fe042
 Author: Knut Ahlers <knut@ahlers.me>
 Date:   Tue Dec 30 14:56:54 2008 +0100
