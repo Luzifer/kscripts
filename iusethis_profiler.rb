@@ -1,7 +1,7 @@
 #!/usr/bin/ruby
 
 ####
-# iUseThis_profiler v.0.2 (c) 2008 by Knut Ahlers
+# iUseThis_profiler v.0.3 (c) 2008 by Knut Ahlers
 # WWW: http://blog.knut.me - Mail: knut@ahlers.me
 #
 # Thanks to Andrew Turner for his improvements to ask the user which
@@ -79,13 +79,14 @@ end
 
 #########################################################################################
 
-puts "Welcome to iUseThis_profiler v.0.2"
+puts "Welcome to iUseThis_profiler v.0.3"
 puts "- Collecting paths..."
 
 paths = []
 paths << File.expand_path('~/Applications/')
 paths << File.expand_path('/Applications/')
 paths << File.expand_path('~/Library/Widgets')
+paths << File.expand_path('~/Library/PreferencePanes')
 
 #########################################################################################
 
@@ -96,11 +97,10 @@ paths.each do |path|
   # For each path execute the search and add the apps and widgets to the array
   puts "  + Searching '#{path}'..."
   
-  search_apps(path, '.wdgt').each do |app|
-    installed_apps << app if !app.nil?
-  end
-  search_apps(path, '.app').each do |app|
-    installed_apps << app if !app.nil?
+  ['.wdgt', '.app', '.prefPane'].each do |extension|
+    search_apps(path, extension).each do |app|
+      installed_apps << app if !app.nil?
+    end
   end
 end
 
@@ -115,7 +115,8 @@ puts "- Check which applications to send..."
 # Ask the user whether he wants to upload this app to iUseThis, if not
 # delete it from the list.
 installed_apps.each do |app|
-  print "  + Upload application '#{app}' to iusethis? (Y/n/a) "
+  count = "(#{(installed_apps.index(app) + 1).to_s.rjust(3)} / #{installed_apps.length.to_s.rjust(3)})"
+  print "  + #{count} Upload application '#{app}' to iusethis? (Y/n/a) "
   input = gets.chomp
   break if input =~ /a/
   (input =~ /n/) ? installed_apps.delete(app) : nil
