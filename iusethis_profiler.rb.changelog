@@ -1,3 +1,9 @@
+commit 1a6c27214b33e1dbbc29f3d572f9adae0be14351
+Author: Knut Ahlers <knut@ahlers.me>
+Date:   Tue Dec 30 19:42:50 2008 +0100
+
+    v.0.6: Disabled terminal feedback while typing the password
+
 commit 1dac95a2f34140485e5411bbf452bc2520ab0a39
 Author: Knut Ahlers <knut@ahlers.me>
 Date:   Tue Dec 30 17:17:39 2008 +0100
