@@ -1,3 +1,9 @@
+commit cc8ce1b4c972fe0beed67f221ff55a466e9fe042
+Author: Knut Ahlers <knut@ahlers.me>
+Date:   Tue Dec 30 14:56:54 2008 +0100
+
+    v.0.4: Improved search speed; Added some more directories to search
+
 commit e06d8638b379820b3cbf85da2d23c213ba2128d8
 Author: Knut Ahlers <knut@ahlers.me>
 Date:   Tue Dec 30 13:37:19 2008 +0100
