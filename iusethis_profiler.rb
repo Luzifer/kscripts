@@ -1,7 +1,7 @@
 #!/usr/bin/ruby
 
 ####
-# iUseThis_profiler v.0.5 (c) 2008 by Knut Ahlers
+# iUseThis_profiler v.0.6 (c) 2008 by Knut Ahlers
 # WWW: http://blog.knut.me - Mail: knut@ahlers.me
 #
 # Thanks to Andrew Turner for his improvements to ask the user which
@@ -94,12 +94,16 @@ end
 
 #########################################################################################
 
-puts "Welcome to iUseThis_profiler v.0.5"
+puts "Welcome to iUseThis_profiler v.0.6"
 
 print "- What is your username for iUseThis_Profiler: "
 user = gets.chomp
-print "- And what is your password for this account: "
+print "- And the password (It will not be displayed here): "
+# Disable the terminal echo for security reasons
+system "stty -echo"
 pass = gets.chomp
+system "stty echo"
+puts
 
 #########################################################################################
 
@@ -166,7 +170,7 @@ send_apps = []
 # delete it from the list.
 installed_apps.each do |app|
   count = "(#{(installed_apps.index(app) + 1).to_s.rjust(3)} / #{installed_apps.length.to_s.rjust(3)})"
-  print "  + #{count} Upload application '#{app}' to iusethis? (Y/n/a) "
+  print "  + #{count} Mark application '#{app}' as used on iusethis? (Y/n/a) "
   
   if added_apps.include? app
     puts "n (Already added.)"
