@@ -1,7 +1,7 @@
 #!/usr/bin/ruby
 
 ####
-# iUseThis_profiler v.0.3 (c) 2008 by Knut Ahlers
+# iUseThis_profiler v.0.4 (c) 2008 by Knut Ahlers
 # WWW: http://blog.knut.me - Mail: knut@ahlers.me
 #
 # Thanks to Andrew Turner for his improvements to ask the user which
@@ -44,8 +44,11 @@ end
 def search_apps(path, extension)
   apps = []
 
-  Find.find(path) do |f| 
-    apps << make_short(f[f.rindex('/')+1..f.length].gsub(extension, '')) if !/.*#{extension}$/.match(f).nil? 
+  Find.find(path) do |f|
+    if !/.*#{extension}$/.match(f).nil?
+      apps << make_short(f[f.rindex('/')+1..f.length].gsub(extension, ''))
+    end
+    Find.prune if FileTest.directory? f and f.include?(".")
   end
   
   apps
@@ -79,14 +82,18 @@ end
 
 #########################################################################################
 
-puts "Welcome to iUseThis_profiler v.0.3"
+puts "Welcome to iUseThis_profiler v.0.4"
 puts "- Collecting paths..."
 
 paths = []
 paths << File.expand_path('~/Applications/')
 paths << File.expand_path('/Applications/')
+
 paths << File.expand_path('~/Library/Widgets')
+paths << File.expand_path('/Library/Widgets')
+
 paths << File.expand_path('~/Library/PreferencePanes')
+paths << File.expand_path('/Library/PreferencePanes')
 
 #########################################################################################
 
