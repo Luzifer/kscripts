@@ -1,3 +1,9 @@
+commit c6324ed2c6691467f6dc9925937f1e6fb8cffe70
+Author: Knut Ahlers <knut@ahlers.me>
+Date:   Thu Jan 8 21:32:45 2009 +0100
+
+    v.0.7: Added update-checker into the script to get the user informed about new versions
+
 commit 1a6c27214b33e1dbbc29f3d572f9adae0be14351
 Author: Knut Ahlers <knut@ahlers.me>
 Date:   Tue Dec 30 19:42:50 2008 +0100
