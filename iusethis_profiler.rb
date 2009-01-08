@@ -1,7 +1,7 @@
 #!/usr/bin/ruby
 
 ####
-# iUseThis_profiler v.0.6 (c) 2008 by Knut Ahlers
+# iUseThis_profiler v.0.7 (c) 2008 by Knut Ahlers
 # WWW: http://blog.knut.me - Mail: knut@ahlers.me
 #
 # Thanks to Andrew Turner for his improvements to ask the user which
@@ -94,7 +94,30 @@ end
 
 #########################################################################################
 
-puts "Welcome to iUseThis_profiler v.0.6"
+# Retrieves the lastest version available at GitHub
+def get_github_version
+  begin
+    giturl = 'http://github.com/Luzifer/kscripts/raw/master/iusethis_profiler.rb'
+    response = Net::HTTP.get_response(URI.parse(giturl))
+    rex = /.*# iUseThis_profiler v.([0-9.]*) .*/.match(response.body)
+    return rex[1].to_f
+  rescue
+    return 0.0
+  end
+end
+
+#########################################################################################
+
+myversion = 0.7
+lastversion = get_github_version
+
+puts "Welcome to iUseThis_profiler v.#{myversion.to_s}"
+
+if myversion < lastversion
+  puts "- There is a new update (v.#{lastversion.to_s}) available at the repository."
+else
+  puts "- You are using the most recent version." if lastversion > 0.0
+end
 
 print "- What is your username for iUseThis_Profiler: "
 user = gets.chomp
