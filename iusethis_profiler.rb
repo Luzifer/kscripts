@@ -1,7 +1,7 @@
 #!/usr/bin/ruby
 
 ####
-# iUseThis_profiler v.0.7 (c) 2008 by Knut Ahlers
+# iUseThis_profiler v.0.8 (c) 2008-09 by Knut Ahlers
 # WWW: http://blog.knut.me - Mail: knut@ahlers.me
 #
 # Thanks to Andrew Turner for his improvements to ask the user which
@@ -108,16 +108,21 @@ end
 
 #########################################################################################
 
-myversion = 0.7
-lastversion = get_github_version
+myversion = 0.8
 
 puts "Welcome to iUseThis_profiler v.#{myversion.to_s}"
+puts "- Checking for new updates..."
+
+lastversion = get_github_version
 
 if myversion < lastversion
-  puts "- There is a new update (v.#{lastversion.to_s}) available at the repository."
+  puts "  + There is a new update (v.#{lastversion.to_s}) available."
+  puts "    Check it out at http://github.com/Luzifer/kscripts/tree/master"
 else
-  puts "- You are using the most recent version." if lastversion > 0.0
+  puts "  + You are using the most recent version." if lastversion > 0.0
 end
+
+#########################################################################################
 
 print "- What is your username for iUseThis_Profiler: "
 user = gets.chomp
@@ -238,5 +243,4 @@ end
 
 #########################################################################################
 
-puts "We are done. All available apps should be online now if there was no error above."
-puts "Have fun! (And don't forget to clean up your profile. I posted every app ;) )"
+puts "We are done. All selected apps should be online now if there was no error above."
