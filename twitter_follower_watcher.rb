@@ -2,7 +2,7 @@
 
 ####
 #
-# TwitterFollowerWatcher v.0.1 (c) 2009 by Knut Ahlers
+# TwitterFollowerWatcher v.0.2 (c) 2009 by Knut Ahlers
 # WWW: http://blog.knut.me - Mail: knut@ahlers.me
 #
 ####
@@ -126,7 +126,7 @@ DB[:followers].update(:following => 0)
 
 # Prepare the mailtext
 mailtext = []
-mailtext << "TwitterFollower-Auswerung vom #{DateTime.now.strftime('%Y-%m-%d %H:%M')}"
+mailtext << "TwitterFollower-Auswertung vom #{DateTime.now.strftime('%Y-%m-%d %H:%M')}"
 mailtext << ""
 
 ###################################################################################
@@ -185,6 +185,22 @@ end
 
 # Delete the friends which were removed by the account
 DB[:friends].filter(:following => 0).delete
+
+###################################################################################
+
+mailtext << ""
+mailtext << "They follow me but I dont follow them:"
+DB["select screenname from followers where uid not in (select uid from friends);"].order(:screenname).all.each do |row|
+  mailtext << "+ #{row[:screenname]}"
+end
+
+###################################################################################
+
+mailtext << ""
+mailtext << "I follow them but they dont follow me:"
+DB["select screenname from friends where uid not in (select uid from followers);"].order(:screenname).all.each do |row|
+  mailtext << "+ #{row[:screenname]}"
+end
 
 ###################################################################################
 
