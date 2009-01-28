@@ -1,0 +1,11 @@
+commit 697afb6afcf314aa5337164d0fe6b5b2ad66486a
+Author: Knut Ahlers <knut@ahlers.me>
+Date:   Wed Jan 28 08:13:30 2009 +0100
+
+    v.0.2: Fixed a typo; Added two blocks to see followers don't follow me while I follow them and vice versa
+
+commit aebb23821395cc755ea10c2642e849ddb300832d
+Author: Knut Ahlers <knut@ahlers.me>
+Date:   Sat Jan 17 18:13:08 2009 +0100
+
+    Added TwitterFollowerWatcher in hope it will be usefull for someone.
