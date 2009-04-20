@@ -1,0 +1,76 @@
+#!/usr/bin/ruby
+
+####
+## NetstatIM v.0.1 (c) 2009 by Knut Ahlers
+## WWW: http://blog.knut.me - Mail: knut@ahlers.me
+##
+## This program is free software: you can redistribute it and/or modify
+## it under the terms of the GNU General Public License as published by
+## the Free Software Foundation, either version 3 of the License, or
+## (at your option) any later version.
+##
+## This program is distributed in the hope that it will be useful,
+## but WITHOUT ANY WARRANTY; without even the implied warranty of
+## MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+## GNU General Public License for more details.
+##
+## You should have received a copy of the GNU General Public License
+## along with this program. If not, see <http://www.gnu.org/licenses/>.
+#####
+
+@showzero = true
+@version = "0.1"
+
+def showversion
+  puts "NetstatIM Version #{@version}"
+  exit
+end
+
+def showhelp
+  puts "NetstatIM Version #{@version}"
+  puts "Improved analysis script for default netstat command"
+  puts
+  puts "Usage: netstatim [-0] [-h] [-v]"
+  puts "   -0: Hide states without data"
+  puts "   -h: Show this help message"
+  puts "   -v: Display script version"
+  exit
+end
+
+ARGV.each do |arg|
+  @showzero = false if arg == '-0'
+  showhelp if arg == '-h'
+  showversion if arg == '-v'
+end
+
+types = {
+  "ESTABLISHED" => 0,
+  "SYN_SENT" => 0,
+  "SYN_RECV" => 0,
+  "FIN_WAIT1" => 0,
+  "FIN_WAIT2" => 0,
+  "TIME_WAIT" => 0,
+  "CLOSE" => 0,
+  "CLOSE_WAIT" => 0,
+  "LAST_ACK" => 0,
+  "LISTEN" => 0,
+  "CLOSING" => 0,
+  "UNKNOWN" => 0,
+  "ALL_CONN" => 0
+  }
+
+netstat = `netstat -n | grep "tcp"`
+lines = netstat.split("\n")
+
+lines.each do |line|
+  fields = line.split(' ')
+  types[fields[5]] = 0 if types[fields[5]].nil?
+  types[fields[5]] = types[fields[5]] + 1
+
+  types['ALL_CONN'] = types['ALL_CONN'] + 1
+end
+
+types.keys.sort.each do |key|
+  puts "#{key.ljust(11)} => #{types[key].to_s.rjust(6)}" if types[key] > 0 or @showzero
+end
+

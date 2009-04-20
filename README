@@ -1,2 +1,5 @@
 iusethis_profiler.rb
   Tiny script to update your profile at iusethis.com for OSX
+
+netstatim
+  Connection counter for netstat to watch currently opened connections
