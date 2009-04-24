@@ -3,3 +3,6 @@ iusethis_profiler.rb
 
 netstatim
   Connection counter for netstat to watch currently opened connections
+
+xmppfifo.rb
+  Tiny script to create a fifo to jabber logger on *nix systems
