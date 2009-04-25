@@ -6,3 +6,6 @@ netstatim
 
 xmppfifo.rb
   Tiny script to create a fifo to jabber logger on *nix systems
+
+feed2twitter.rb
+  Script to transmit articles from RSS feed to twitter account
