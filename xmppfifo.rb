@@ -26,6 +26,7 @@ config = {
 begin
   require 'rubygems'
   require 'xmpp4r/client'
+  require 'date'
 rescue LoadError
   puts "This script requires the xmpp4r ruby gem. Please install it"
   exit
