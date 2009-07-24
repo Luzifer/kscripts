@@ -1,2 +1,6 @@
+v.0.3:
+ + Added function WPPixelpostJSONOutput(<url begin>, <number of images>) to the plugin
+   to support themes not compatible to the widget code
+
 v.0.2:
  + Initial version of the widget

@@ -3,7 +3,7 @@
 Plugin Name: WP-PixelpostJSONWidget
 Plugin URI: http://blog.knut.me/
 Description: This widget fetches the json output from a pixelpost photoblog and displays the last pictures in the sidebar. Requires <a href="http://www.pixelpost.org/extend/addons/json-output-for-pixelpost/" target="_blank">JSON Output for Pixelpost</a> to be installed in the photoblog.
-Version: 0.2
+Version: 0.3
 Author: Knut Ahlers
 Author URI: http://blog.knut.me/
 */
@@ -23,6 +23,46 @@ Author URI: http://blog.knut.me/
     along with this program; if not, write to the Free Software
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
+
+function WPPixelpostJSONGenerate($src, $number) {
+	
+	// Build the URL and get the contents of the JSON
+	$url = $options['src'] . "/index.php?z=json&number=" . $options['number'];
+	$src = file_get_contents($url);
+
+	// Quick-n-Dirty cleanup of the javascript trash in the plugin output...
+	$src = str_replace('jsonPixelpostFeed(', '', $src);
+	$src = str_replace('})', '}', $src);
+	// I'm sorry for this but the author thought only about javascript so I
+	// have to do the cleanup here. If you want to kick someone for this please
+	// kick the author of the pixelpost plugin.
+
+	// Extract the contents from the JSON
+	$json = json_decode($src);
+	
+	// Set the title to the photoblog-stream
+	$title = $json->{'title'};
+	
+	$html = "";
+	
+	// Print out every image vertically
+	foreach($json->{'items'} as $item) {
+		$html .= "<a href=\"" . $item->{'link'} . "\">";
+		$html .= "<img src=\"" . $item->{'thumbnail'} . "\" alt=\"" . $item->{'title'} . "\" style=\"border:0;\" />";
+		$html .= "</a><br />";
+	}
+	
+	return array('html' => $html, 'title' => $title);
+}
+
+function WPPixelpostJSONOutput($src, $number) {
+	
+	// Get the code for the html content
+	$res = WPPixelpostJSONGenerate($src, $number);
+	
+	// Print out the images
+	echo $res['html'];
+}
 
 function WPPixelpostJSONWidgetINIT() {
 	
@@ -67,33 +107,18 @@ function WPPixelpostJSONWidgetINIT() {
 		// Get the options from the database
 		$options = (array) get_option('WPPixelpostJSONWidget');
 		
-		// Build the URL and get the contents of the JSON
-		$url = $options['src'] . "/index.php?z=json&number=" . $options['number'];
-		$src = file_get_contents($url);
-	
-		// Quick-n-Dirty cleanup of the javascript trash in the plugin output...
-		$src = str_replace('jsonPixelpostFeed(', '', $src);
-		$src = str_replace('})', '}', $src);
-		// I'm sorry for this but the author thought only about javascript so I
-		// have to do the cleanup here. If you want to kick someone for this please
-		// kick the author of the pixelpost plugin.
-	
-		// Extract the contents from the JSON
-		$json = json_decode($src);
+		// Get the code for the widget content
+		$res = WPPixelpostJSONGenerate($options['src'], $options['number']);
 		
 		// Set the title to the photoblog-stream
-		$title = $json->{'title'};
+		$title = $res['title'];
 		
 		// Print the defined startup for the widget
 		echo $before_widget . $before_title . $title . $after_title;
 		echo "<p style=\"text-align:center;margin-bottom:0px;padding:4px;\">";
 		
-		// Print out every image vertically
-		foreach($json->{'items'} as $item) {
-			echo "<a href=\"" . $item->{'link'} . "\">";
-			echo "<img src=\"" . $item->{'thumbnail'} . "\" alt=\"" . $item->{'title'} . "\" style=\"border:0;\" />";
-			echo "</a><br />";
-		}
+		// Print out the images
+		echo $res['html'];
 		
 		// Finish the widget
 		echo "</p>";
