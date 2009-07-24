@@ -3,7 +3,7 @@
 Plugin Name: WP-PixelpostJSONWidget
 Plugin URI: http://blog.knut.me/
 Description: This widget fetches the json output from a pixelpost photoblog and displays the last pictures in the sidebar. Requires <a href="http://www.pixelpost.org/extend/addons/json-output-for-pixelpost/" target="_blank">JSON Output for Pixelpost</a> to be installed in the photoblog.
-Version: 0.3
+Version: 0.3.1
 Author: Knut Ahlers
 Author URI: http://blog.knut.me/
 */
@@ -27,7 +27,7 @@ Author URI: http://blog.knut.me/
 function WPPixelpostJSONGenerate($src, $number) {
 	
 	// Build the URL and get the contents of the JSON
-	$url = $options['src'] . "/index.php?z=json&number=" . $options['number'];
+	$url = $src . "/index.php?z=json&number=" . $number;
 	$src = file_get_contents($url);
 
 	// Quick-n-Dirty cleanup of the javascript trash in the plugin output...
