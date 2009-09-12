@@ -67,7 +67,7 @@ def download_file(url, filename, start = 0)
           timegone = DateTime.now.strftime('%s').to_i - start
           bps = size.to_f / timegone.to_f
           sleft = ((len - size).to_f / bps).to_i 
-          print_line "DL: #{filename} - [#{'=' * lines}>#{' ' * (24 - lines)}] #{perc}% (#{transform_byte(size)} / #{transform_byte(len)}) ETA: #{transform_secs(sleft)}"
+          print_line "DL: #{filename} - [#{'=' * lines}#{' ' * (25 - lines)}] #{perc}% (#{transform_byte(size)} / #{transform_byte(len)}) ETA: #{transform_secs(sleft)}"
         end 
       end
     end
@@ -76,16 +76,21 @@ def download_file(url, filename, start = 0)
       print_line "\a\a\a" << ex.message
       sleep 2
     end
+    if ex.message.include? 'Interupt'
+      print_line "You interupted me. Skipping this file..."
+      return
+    end
     # Something went wrong? Simply try again... (Hope the user want this to...)
     print_line "Connection failture. Trying again..."
-    return download_file(url, filename, size)
+    return download_file(url, filename, size) 
   end
   # Finished but did not got everything? Should not happen. Try to get the rest
   if size < len
     return download_file(url, filename, size)
   end
   # Tell the user that we are done :)
-  print_line "Completed. See your file at #{filename}\n"
+  print_line "Completed. See your file at #{filename}"
+  puts
 end
 
 # Transforms the float number to something with max. 2 digits after the colon
@@ -145,7 +150,10 @@ ARGV.each do |youtubeurl|
   match_title = /<title>(.*)<\/title>/.match(source)
 
   # Something is nil? So there is no video or title? Stupid YouTube (or user...)
-  exit if match_video.nil? or match_title.nil?
+  if match_video.nil? or match_title.nil?
+    print_line "Unable to fetch #{youtubeurl} - There is no video o_O"
+    puts 
+  end
 
   # Check all the sizes of the urls to get the biggest. (This really should be the HD-quality)
   videourl = ''
