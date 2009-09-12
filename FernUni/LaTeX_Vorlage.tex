@@ -1,0 +1,68 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage{graphicx} 
+\usepackage{lastpage}
+\usepackage{anysize}
+\usepackage{fancyhdr}
+\usepackage[german]{babel}
+\usepackage[T1]{fontenc}
+%\usepackage[utf8]{inputenc}
+\usepackage{aeguill}
+\usepackage{eurosym}
+\usepackage{multicol}
+\usepackage{amsmath} 
+\usepackage{amssymb} 
+\usepackage{amsthm}
+
+%%% Format der Seite anpassen
+\marginsize{2.5cm}{5cm}{0.85cm}{2.41cm}
+
+%%% Header und Footer bauen
+\pagestyle{fancy}
+\renewcommand{\footrulewidth}{0.4pt}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\headheight}{2.0cm}
+\renewcommand{\headsep}{0cm}
+\setlength{\unitlength}{1mm}
+\lhead{Matrikelnummer\\1234567\\}
+\chead{\large{Einsendeaufgabe 1\\fuer den Kurs\\007}}
+\rhead{\today\\\ \\\ }
+\lfoot{\small{Telefon: +49 (123) 456 789 0\\
+	e-Mail: max@mustermann.biz\\
+	WWW: www.mustermann.biz}}
+\cfoot{\thepage\ / \pageref{LastPage}}
+\rfoot{\small{Max Mustermann\\Musterstr. 987\\56382 Musterstadt}}
+
+\begin{document}
+\setlength{\parindent}{0mm}
+\setlength{\parskip}{6pt }
+
+%%% Dokumentenkrams nur auf der ersten Seite
+
+\hfill
+
+%%% Dokumenteninhalt
+
+Hier sollte dann irgendwas sinnvolles stehen... Oder zumindest irgendetwas, das den Anschein hat sinnvoll zu sein. 
+Und wenn selbst das fehlschl"agt, dann sollte es die Korrektoren so weit verwirren, dass sie es nicht merken. ;)
+
+\section{Beispiele}
+
+Zum Beispiel kann man den Satz des Pythagoras mit \LaTeX\ gut darstellen:
+\begin{equation}
+	a^2 * b^2 = c^2
+\end{equation}
+
+Und auch ganz kranker Kram funktioniert:
+
+\begin{equation} \left. \begin{aligned} \frac{dB}{dt} & = -\nabla \times E \\ \frac{dE}{dt} & = \nabla \times B - 4 \pi j \end{aligned} \right\}\qquad \text{Maxwellsche Gleichungen} \end{equation}
+
+\section{Dokumentation}
+
+Da in dieser Vorlage \AmS\ zum Einsatz kommt, gibt es sicherlich viele Dokus zum Verhalten, allerdings finde ich eine sehr interessant:
+
+http://www.matheplanet.com/matheplanet/nuke/html/article.php?sid=740 (Oben den Link zur 24-Seiten-PDF, die m"ogen kein Hotlinking...)\\\small{(Hier habe ich auch die Maxwellsche Gleichungen entliehen ;))}
+
+Ansonsten k"onnen alle normalen \LaTeX\ Anweisungen verwendet werden.
+
+
+\end{document}
