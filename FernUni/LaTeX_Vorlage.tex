@@ -14,14 +14,14 @@
 \usepackage{amsthm}
 
 %%% Format der Seite anpassen
-\marginsize{2.5cm}{5cm}{0.85cm}{2.41cm}
+\marginsize{2.5cm}{5cm}{0.85cm}{3.16cm}
 
 %%% Header und Footer bauen
 \pagestyle{fancy}
 \renewcommand{\footrulewidth}{0.4pt}
 \renewcommand{\headrulewidth}{0.4pt}
 \renewcommand{\headheight}{2.0cm}
-\renewcommand{\headsep}{0cm}
+\renewcommand{\headsep}{0.75cm}
 \setlength{\unitlength}{1mm}
 \lhead{Matrikelnummer\\1234567\\}
 \chead{\large{Einsendeaufgabe 1\\fuer den Kurs\\007}}
@@ -36,10 +36,6 @@
 \setlength{\parindent}{0mm}
 \setlength{\parskip}{6pt }
 
-%%% Dokumentenkrams nur auf der ersten Seite
-
-\hfill
-
 %%% Dokumenteninhalt
 
 Hier sollte dann irgendwas sinnvolles stehen... Oder zumindest irgendetwas, das den Anschein hat sinnvoll zu sein. 
@@ -49,7 +45,7 @@ Und wenn selbst das fehlschl"agt, dann sollte es die Korrektoren so weit verwirr
 
 Zum Beispiel kann man den Satz des Pythagoras mit \LaTeX\ gut darstellen:
 \begin{equation}
-	a^2 * b^2 = c^2
+	a^2 + b^2 = c^2
 \end{equation}
 
 Und auch ganz kranker Kram funktioniert:
@@ -64,5 +60,18 @@ http://www.matheplanet.com/matheplanet/nuke/html/article.php?sid=740 (Oben den L
 
 Ansonsten k"onnen alle normalen \LaTeX\ Anweisungen verwendet werden.
 
+\section{Versionen der Vorlage}
+\subsection{2009-09-13}
+\begin{itemize}
+\item{Changelog hinzugef"ugt}
+\item{Randformatierungen verbessert}
+\item{Beispielformel berichtigt}
+\end{itemize}
+\subsection{2009-09-12}
+\begin{itemize}
+\item{Erste Version der Vorlage}
+\end{itemize}
+
+%%% Ende Dokumenteninhalt
 
 \end{document}
