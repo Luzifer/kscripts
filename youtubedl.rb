@@ -169,7 +169,7 @@ ARGV.each do |youtubeurl|
   end
 
   # Filesystems does not like special characters so build a saveable filename
-  filename = match_title[1].gsub(/[< >:"\/\\|?*]/, '_') << '.flv'
+  filename = match_title[1].gsub(/[< >:"\/\\|?*,.]/, '_') << '.flv'
 
   # If there is something downloaded we try to continue
   start = 0
