@@ -1,5 +1,8 @@
 #!/usr/bin/ruby
 
+# ###############################################################################
+#                            THE BORING LICENSE STUFF                            
+# ###############################################################################
 # Copyright (c) 2009 Knut Ahlers <knut@ahlers.me>
 # 
 # Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -19,9 +22,11 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
+# ###############################################################################
 
 # ###############################################################################
 #                               HOW TO INSTALL THIS                             
+# ###############################################################################
 # To install this you set up a database or simply keep the default setting to use
 # a sqlite-file database in the current directory named 'tweetdb.dat' and copy
 # everything to a directory of your choice.
@@ -43,6 +48,22 @@
 # 
 # KThxBye Knut ;)
 # ###############################################################################
+
+# ###############################################################################
+#                              HOW TO USE THE SCRIPT                             
+# ###############################################################################
+# To use this script simply execute it on the commandline (terminal, bash, however
+# you call it...) choosing one of this commands:
+# - ./tweetarchiver.rb
+# - ruby tweetarchiver.rb
+# 
+# If you get some error messages please see installation section above for 
+# instructions how to set up everything correctly. 
+# 
+# If you are a windows user: I'm sorry but I can't tell you if it works on 
+# windows but if you get it to work please email me an instruction for windows :D
+# ###############################################################################
+
 
 require 'rubygems'
 require 'net/http'
