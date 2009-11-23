@@ -20,6 +20,30 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 
+# ###############################################################################
+#                               HOW TO INSTALL THIS                             
+# To install this you set up a database or simply keep the default setting to use
+# a sqlite-file database in the current directory named 'tweetdb.dat' and copy
+# everything to a directory of your choice.
+# 
+# Now adjust the username and password to the credentials for the account you
+# want to backup. Please also change file permissions for the script to 700 so
+# no one can read your twitter password from the script.
+# 
+# To get this working you need to install two additional gems to ruby using this
+# commands as super-user (root):
+# - gem install json
+# - gem install sequel
+# 
+# Additional keep sure to install the database extension you want to use. (By 
+# default the sqlite3-extension.) After you've done this everything should work
+# fine by executing the script.
+# 
+# Have fun using and modifying the script.
+# 
+# KThxBye Knut ;)
+# ###############################################################################
+
 require 'rubygems'
 require 'net/http'
 require 'json'
